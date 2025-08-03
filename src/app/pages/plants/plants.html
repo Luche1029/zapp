@@ -1,0 +1,15 @@
+<div class="plants-container">
+  <h2>Le tue piante</h2>
+
+  <div *ngIf="loading">Caricamento in corso...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let plant of plants">
+      <strong>{{ plant.nickname }}</strong>
+      <span>({{ plant.species_name }})</span>
+    </li>
+  </ul>
+
+  <button class="add-button">+ Aggiungi pianta</button>
+</div>
