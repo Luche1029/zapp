@@ -1,50 +1,126 @@
-.plants-container {
-  max-width: 600px;
-  margin: 20px auto;
+.plants-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
-  h2 {
-    margin-bottom: 20px;
-    text-align: center;
+  .plants-container {
+    flex: 1;
+    max-width: 400px;
+    background: #f9f9f999;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
+  .plant-detail {
+    position: sticky;
+    top: 20px;
+    right: 30%;
+    transform: translateX(300px); /* centratura rispetto lista */
+    width: 400px;
+    background: #f9f9f999;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
 
-    li {
-      padding: 8px;
-      margin-bottom: 6px;
-      background: #fff;
-      border: 1px solid #ddd;
+  .plants-container {
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 8px;
+        margin-bottom: 6px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &.active {
+          background: #e6ffe6;
+          border-color: #28a745;
+        }
+      }
+    }
+
+    .add-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
       border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #218838;
+      }
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
     }
   }
 
-  .add-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  .plant-detail {
+    h2 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
 
-    &:hover {
-      background-color: #218838;
+    p {
+      margin: 6px 0;
+    }
+
+    .back-button {
+      display: none;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+      }
     }
   }
 
-  .error {
-    color: red;
-    text-align: center;
-    margin-bottom: 10px;
+  /* Responsive */
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .plants-container.hidden {
+      display: none;
+    }
+
+    .plant-detail {
+            position: relative;
+      top: auto;
+      right: auto;
+      transform: none;
+      width: 100%;
+
+      .back-button {
+        display: block;
+      }
+    }
   }
 }

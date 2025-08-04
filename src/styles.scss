@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-image: url('./assets/images/background-plants.png'); /* percorso file */
+  background-repeat: repeat; /* o no-repeat se preferisci */
+  background-size: cover;    /* o contain/repeat a seconda dell'effetto */
+  background-attachment: fixed;
+  background-color: #f7f7f7; /* fallback colore chiaro pastello */
+}

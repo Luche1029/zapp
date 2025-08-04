@@ -1,15 +1,34 @@
-<div class="plants-container">
-  <h2>Le tue piante</h2>
+<!-- plants.component.html aggiornato -->
+<div class="plants-wrapper">
 
-  <div *ngIf="loading">Caricamento in corso...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <!-- Lista piante -->
+  <div class="plants-container" [class.hidden]="isMobile && selectedPlant">
+    <h2>Le tue piante</h2>
 
-  <ul *ngIf="!loading && !error">
-    <li *ngFor="let plant of plants">
-      <strong>{{ plant.nickname }}</strong>
-      <span>({{ plant.species_name }})</span>
-    </li>
-  </ul>
+    <div *ngIf="loading">Caricamento in corso...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
 
-  <button class="add-button">+ Aggiungi pianta</button>
+    <ul *ngIf="!loading && !error">
+      <li *ngFor="let plant of plants; let i = index"
+          [class.active]="i === selectedIndex"
+          (click)="selectPlant(i)">
+        <strong>{{ plant.nickname }}</strong>
+        <span>({{ plant.species_name }})</span>
+      </li>
+    </ul>
+
+    <button class="add-button">+ Aggiungi pianta</button>
+  </div>
+
+  <!-- Dettaglio pianta -->
+  <div class="plant-detail" *ngIf="selectedPlant">
+    <h2>{{ selectedPlant.nickname }}</h2>
+    <p>Specie: {{ selectedPlant.species_name }}</p>
+    <p>Status: {{ selectedPlant.status }}</p>
+    <p>Posizione: {{ selectedPlant.location }}</p>
+    <p>Data impianto: {{ selectedPlant.planted_date | date }}</p>
+
+    <!-- Pulsante torna alla lista per mobile -->
+    <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>
+  </div>
 </div>
