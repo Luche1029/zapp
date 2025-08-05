@@ -1,1 +1,105 @@
-<p>species works!</p>
+<div class="species-wrapper">
+
+  <!-- Lista specie -->
+  <div class="species-container" [class.hidden]="isMobile && selectedSpecies">
+    <div class="header">
+      <h2>Specie</h2>
+      <button class="add-button" (click)="openAddSpeciesForm()">
+        <span class="material-icons">add</span>
+      </button>
+    </div>
+
+    <div *ngIf="loading">Caricamento in corso...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <ul *ngIf="!loading && !error">
+      <li *ngFor="let sp of species; let i = index"
+          [class.active]="i === selectedIndex"
+          (click)="selectSpecies(i)">
+        <strong>{{ sp.common_name }}</strong>
+        <span>({{ sp.scientific_name }})</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Dettaglio specie -->
+  <div class="species-detail" *ngIf="selectedSpecies">
+    <div class="inner-species-detail">
+      <h2>{{ selectedSpecies.common_name }}</h2>
+      <p><strong>Nome scientifico:</strong> {{ selectedSpecies.scientific_name }}</p>
+      <p><strong>Categoria:</strong> {{ selectedSpecies.category }}</p>
+      <p><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure }}</p>
+      <p><strong>Annaffiatura:</strong> ogni {{ selectedSpecies.watering_freq }} giorni</p>
+      <p><strong>Concimazione:</strong> ogni {{ selectedSpecies.fertilizing_freq }} giorni</p>
+      <p><strong>Periodo semina:</strong> {{ selectedSpecies.sowing_period }}</p>
+      <p><strong>Periodo raccolta:</strong> {{ selectedSpecies.harvest_period }}</p>
+      <p><strong>Note:</strong> {{ selectedSpecies.notes }}</p>
+    </div>
+
+    <button *ngIf="isMobile" class="back-button" (click)="deselectSpecies()">Torna alla lista</button>
+  </div>
+
+  <!-- FAB per tornare a plants -->
+  <button class="fab" (click)="goToPlants()">
+    <span class="material-icons">arrow_back</span>
+  </button>
+
+  <!-- Modal aggiunta specie -->
+<div class="modal" *ngIf="showAddModal">
+  <div class="modal-content">
+    <h3>Aggiungi specie</h3>
+    <form (ngSubmit)="addSpecies()" #speciesForm="ngForm">
+
+      <!-- Nome comune -->
+      <label>Nome comune</label>
+      <input type="text" [(ngModel)]="newSpecies.common_name" name="common_name" required />
+
+      <!-- Nome scientifico -->
+      <label>Nome scientifico</label>
+      <input type="text" [(ngModel)]="newSpecies.scientific_name" name="scientific_name" />
+
+      <!-- Categoria -->
+      <label>Categoria</label>
+      <input type="text" [(ngModel)]="newSpecies.category" name="category" />
+
+      <!-- Esposizione -->
+      <label>Esposizione</label>
+      <input type="text" [(ngModel)]="newSpecies.sun_exposure" name="sun_exposure" />
+
+      <!-- Frequenza annaffiatura -->
+      <label>Frequenza annaffiatura (giorni)</label>
+      <input type="number" [(ngModel)]="newSpecies.watering_freq" name="watering_freq" min="1" />
+
+      <!-- Frequenza concimazione -->
+      <label>Frequenza concimazione (giorni)</label>
+      <input type="number" [(ngModel)]="newSpecies.fertilizing_freq" name="fertilizing_freq" min="1" />
+
+      <!-- Frequenza potatura -->
+      <label>Frequenza potatura (giorni)</label>
+      <input type="number" [(ngModel)]="newSpecies.pruning_freq" name="pruning_freq" min="1" />
+
+      <!-- Periodo semina -->
+      <label>Periodo semina</label>
+      <input type="text" [(ngModel)]="newSpecies.sowing_period" name="sowing_period" />
+
+      <!-- Periodo raccolta -->
+      <label>Periodo raccolta</label>
+      <input type="text" [(ngModel)]="newSpecies.harvest_period" name="harvest_period" />
+
+      <!-- Note -->
+      <label>Note</label>
+      <textarea [(ngModel)]="newSpecies.notes" name="notes"></textarea>
+
+      <!-- URL immagine -->
+      <label>URL immagine</label>
+      <input type="url" [(ngModel)]="newSpecies.image_url" name="image_url" />
+
+      <!-- Pulsanti -->
+      <button type="submit" [disabled]="!speciesForm.valid">Salva</button>
+      <button type="button" (click)="closeAddSpeciesForm()">Annulla</button>
+    </form>
+  </div>
+</div>
+
+
+</div>

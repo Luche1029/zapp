@@ -1,9 +1,13 @@
-<!-- plants.component.html aggiornato -->
 <div class="plants-wrapper">
 
   <!-- Lista piante -->
   <div class="plants-container" [class.hidden]="isMobile && selectedPlant">
-    <h2>Le tue piante</h2>
+    <div class="header">
+      <h2>Le tue piante</h2>
+      <button class="add-button" (click)="openAddPlantForm()">
+        <span class="material-icons">add</span>
+      </button>
+    </div>
 
     <div *ngIf="loading">Caricamento in corso...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
@@ -16,19 +20,66 @@
         <span>({{ plant.species_name }})</span>
       </li>
     </ul>
-
-    <button class="add-button">+ Aggiungi pianta</button>
   </div>
 
   <!-- Dettaglio pianta -->
   <div class="plant-detail" *ngIf="selectedPlant">
-    <h2>{{ selectedPlant.nickname }}</h2>
-    <p>Specie: {{ selectedPlant.species_name }}</p>
-    <p>Status: {{ selectedPlant.status }}</p>
-    <p>Posizione: {{ selectedPlant.location }}</p>
-    <p>Data impianto: {{ selectedPlant.planted_date | date }}</p>
+    <div class="inner-plant-detail">
+      <h2>{{ selectedPlant.nickname }} <small>({{ selectedPlant.common_name }})</small></h2>
+      <img *ngIf="selectedPlant.image_url" [src]="selectedPlant.image_url" alt="{{ selectedPlant.common_name }}" />
+
+      <p><strong>Nome scientifico:</strong> {{ selectedPlant.scientific_name }}</p>
+      <p><strong>Categoria:</strong> {{ selectedPlant.category }}</p>
+      <p><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure }}</p>
+
+      <p><strong>Status:</strong> {{ selectedPlant.status }}</p>
+      <p><strong>Data impianto:</strong> {{ selectedPlant.planted_date | date }}</p>
+      <p><strong>Ultima annaffiatura:</strong> {{ selectedPlant.last_watering | date }}</p>
+      <p><strong>Posizione:</strong> {{ selectedPlant.location }}</p>
+
+      <p><strong>Note:</strong> {{ selectedPlant.plant_notes || selectedPlant.species_notes }}</p>
+    </div>
 
     <!-- Pulsante torna alla lista per mobile -->
     <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>
   </div>
+
+  <button class="fab" (click)="goToSpecies()">
+     <span class="material-icons">eco</span>
+  </button>
+
+  <!-- Modal aggiunta pianta -->
+  <div class="modal" *ngIf="showAddModal">
+    <div class="modal-content">
+      <h3>Aggiungi pianta</h3>
+      <form (ngSubmit)="addPlant()" #plantForm="ngForm">
+        <label>Specie</label>
+        <select [(ngModel)]="newPlant.species_id" name="species_id" required>
+          <option *ngFor="let s of species" [value]="s.id">{{ s.common_name }}</option>
+        </select>
+
+        <label>Nickname</label>
+        <input type="text" [(ngModel)]="newPlant.nickname" name="nickname" required />
+
+        <label>Data impianto</label>
+        <input type="date" [(ngModel)]="newPlant.planted_date" name="planted_date" required />
+
+        <label>Status</label>
+        <select [(ngModel)]="newPlant.status" name="status">
+          <option value="seed">Seme</option>
+          <option value="seedling">Germoglio</option>
+          <option value="adult">Adulto</option>
+        </select>
+
+        <label>Posizione</label>
+        <input type="text" [(ngModel)]="newPlant.location" name="location" />
+
+        <button type="submit" [disabled]="!plantForm.valid">Salva</button>
+        <button type="button" (click)="closeAddPlantForm()">Annulla</button>
+      </form>
+    </div>
+  </div>
 </div>
+
+
+

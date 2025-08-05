@@ -1,11 +1,16 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plants',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './plants.html',
   styleUrl: './plants.scss'
 })
@@ -17,7 +22,17 @@ export class PlantsComponent implements OnInit {
   error = '';
   isMobile = false;
 
-  constructor(private api: ApiService) {}
+  showAddModal = false;
+  newPlant = {
+    species_id: '',
+    nickname: '',
+    planted_date: '',
+    status: 'seed',
+    location: ''
+  };
+  species: any[] = [];
+
+  constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.checkScreenSize();
@@ -43,12 +58,55 @@ export class PlantsComponent implements OnInit {
   // Selezione pianta
   selectPlant(index: number) {
     this.selectedIndex = index;
-    this.selectedPlant = this.plants[index];
+    const plantId = this.plants[index].id;
+
+    this.api.getPlantDetail(plantId).subscribe({
+      next: (detail) => {
+        this.selectedPlant = detail;
+      },
+      error: () => {
+        this.selectedPlant = null;
+        this.error = 'Errore nel caricamento dettagli pianta';
+      }
+    });
   }
+
 
   // Deselezione per mobile
   deselectPlant() {
     this.selectedPlant = null;
+  }
+
+  openAddPlantForm() {
+    this.showAddModal = true;
+
+    // Se non abbiamo ancora caricato le specie, caricale
+    if (this.species.length === 0) {
+      this.api.getSpecies().subscribe({
+        next: (res) => this.species = res,
+        error: () => this.error = 'Errore nel caricamento specie'
+      });
+    }
+  }
+
+  closeAddPlantForm() {
+    this.showAddModal = false;
+  }
+
+  addPlant() {
+    this.api.savePlant(this.newPlant).subscribe({
+      next: (res) => {
+        this.showAddModal = false;
+        // Aggiorna lista piante
+        this.api.getPlants().subscribe(plants => this.plants = plants);
+      },
+      error: () => this.error = 'Errore nel salvataggio pianta'
+    });
+  }
+
+  
+  goToSpecies() {
+    this.router.navigate(['/species']);
   }
 
   // Rilevamento dimensione schermo

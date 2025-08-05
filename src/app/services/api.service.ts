@@ -35,6 +35,11 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/plants`, { headers: this.getAuthHeaders() });
   }
 
+  getPlantDetail(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/plants/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+
   savePlant(plant: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/plants`, plant, { headers: this.getAuthHeaders() });
   }
