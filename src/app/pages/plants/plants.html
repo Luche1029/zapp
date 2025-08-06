@@ -40,6 +40,10 @@
       <p><strong>Note:</strong> {{ selectedPlant.plant_notes || selectedPlant.species_notes }}</p>
     </div>
 
+    <button class="open-tasks-button" (click)="goToTasks()">
+      <span class="material-icons">calendar_today</span>
+    </button>
+
     <!-- Pulsante torna alla lista per mobile -->
     <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>
   </div>

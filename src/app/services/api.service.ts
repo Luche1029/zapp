@@ -45,11 +45,19 @@ export class ApiService {
   }
 
   // Tasks
-  getTasks(): Observable<any> {
+  /*getAllTasks(): Observable<any> {
     return this.http.get(`${this.baseUrl}/tasks`, { headers: this.getAuthHeaders() });
+  }*/
+
+  getTasks(plantId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/tasks/${plantId}`,  { headers: this.getAuthHeaders() });
+  }
+  
+  updateTask(id: number, status: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/tasks/${id}`, { status }, {
+      headers: this.getAuthHeaders()
+    });
   }
 
-  updateTask(task: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/tasks`, task, { headers: this.getAuthHeaders() });
-  }
+
 }

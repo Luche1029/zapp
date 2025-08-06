@@ -146,6 +146,25 @@
     background-color: #218838;
   }
 }
+.open-tasks-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #17a2b8;
+
+  &:hover {
+    color: #0056b3;
+  }
+}
+
+.plant-detail {
+  position: relative; /* per permettere il posizionamento assoluto */
+}
+
 
   .modal {
     position: fixed;

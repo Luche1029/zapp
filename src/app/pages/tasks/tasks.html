@@ -1,1 +1,24 @@
-<p>tasks works!</p>
+<div class="tasks-wrapper">
+  <h2>Task per {{ plantNickname }}</h2>
+
+  <div *ngIf="loading">Caricamento in corso...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let task of tasks">
+      <div class="task-info">
+        <strong>{{ task.type | titlecase }}</strong>
+        <span class="date">{{ task.scheduled_date | date }}</span>
+        <small *ngIf="task.status === 'completed'">✅ Completato</small>
+        <small *ngIf="task.status === 'skipped'">❌ Saltato</small>
+        <small *ngIf="task.status === 'pending'">🕒 Da fare</small>
+        <p *ngIf="task.notes">{{ task.notes }}</p>
+      </div>
+
+      <div class="task-actions" *ngIf="task.status === 'pending'">
+        <button (click)="completeTask(task.id)">✔️</button>
+        <button (click)="skipTask(task.id)">⏭️</button>
+      </div>
+    </li>
+  </ul>
+</div>
