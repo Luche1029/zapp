@@ -114,6 +114,15 @@ export class PlantsComponent implements OnInit {
     this.router.navigate([`/plants/${plantId}/tasks`]);
   }
 
+  goToCalendar() {
+    const plantId = this.selectedPlant?.plant_id || this.selectedPlant?.id;
+    if (plantId) {
+      this.router.navigate(['/tasks/calendar/plant', plantId]);
+    } else {
+      this.router.navigate(['/tasks/calendar']);
+    }
+  }
+
   // Rilevamento dimensione schermo
   @HostListener('window:resize', [])
   onResize() {

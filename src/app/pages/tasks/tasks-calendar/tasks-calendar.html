@@ -1,0 +1,32 @@
+<div class="calendar-wrapper">
+  <h2>Calendario attività</h2>
+
+  <div *ngIf="loading" class="loading">Caricamento…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="days-row" *ngIf="!loading && !error">
+    <div class="day-card" *ngFor="let day of days">
+      <div class="day-header">
+        <h3>{{ day.date | date:'fullDate' }}</h3>
+        <div class="day-actions">
+          <button title="Completa tutti" (click)="completeAll(day)">✅</button>
+          <button title="Salta tutti" (click)="skipAll(day)">⏭️</button>
+        </div>
+      </div>
+
+      <ul class="tasks-list">
+        <li *ngFor="let t of day.tasks" [class.done]="t.status==='completed'" [class.skipped]="t.status==='skipped'">
+          <div class="left">
+            <div class="plant">{{ t.plant_name }}</div>
+            <div class="type">{{ t.type }}</div>
+          </div>
+          <div class="right status">
+            <span *ngIf="t.status==='pending'">🕒</span>
+            <span *ngIf="t.status==='completed'">✅</span>
+            <span *ngIf="t.status==='skipped'">⏭️</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

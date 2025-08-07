@@ -1,0 +1,91 @@
+.calendar-wrapper {
+  padding: 16px;
+  h2 { text-align: center; margin-bottom: 14px; }
+  .loading, .error { text-align: center; margin: 10px 0; }
+}
+
+.days-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+
+  /* nascondi scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.days-row::-webkit-scrollbar { display: none; }
+
+.day-card {
+  flex: 0 0 320px;
+  background: #f9f9f9dd;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .day-actions {
+    display: flex;
+    gap: 6px;
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 8px;
+      cursor: pointer;
+      background: #e9f3ff;
+      transition: filter .15s;
+      &:hover { filter: brightness(0.95); }
+      &:last-child { background: #ffe9e9; }
+    }
+  }
+}
+
+.tasks-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 380px;
+  overflow-y: auto;
+
+  /* nascondi scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tasks-list::-webkit-scrollbar { display: none; }
+
+.tasks-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 14px;
+
+  .left { display: flex; flex-direction: column; }
+  .plant { font-weight: 600; }
+  .type { color: #666; font-size: 12px; }
+
+  &.done  { opacity: 0.7; border-color: #cce6cc; }
+  &.skipped { opacity: 0.7; border-color: #e6cccc; }
+}

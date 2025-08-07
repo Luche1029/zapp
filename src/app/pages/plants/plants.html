@@ -43,6 +43,9 @@
     <button class="open-tasks-button" (click)="goToTasks()">
       <span class="material-icons">calendar_today</span>
     </button>
+<button class="open-calendar-button" (click)="goToCalendar()">
+  <span class="material-icons">calendar_month</span>
+</button>
 
     <!-- Pulsante torna alla lista per mobile -->
     <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>
