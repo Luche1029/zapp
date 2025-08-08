@@ -1,13 +1,12 @@
-<div class="species-wrapper">
+<div class="page-wrapper">
 
   <!-- Lista specie -->
-  <div class="species-container" [class.hidden]="isMobile && selectedSpecies">
-    <div class="header">
-      <h2>Specie</h2>
-      <button class="add-button" (click)="openAddSpeciesForm()">
-        <span class="material-icons">add</span>
-      </button>
-    </div>
+  <div class="module-container" [class.hidden]="isMobile && selectedSpecies">
+   
+    <h2>Specie</h2>
+    <button class="add-button" (click)="openAddSpeciesForm()">
+      <span class="material-icons">add</span>
+    </button>
 
     <div *ngIf="loading">Caricamento in corso...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
@@ -22,21 +21,22 @@
     </ul>
   </div>
 
-  <!-- Dettaglio specie -->
-  <div class="species-detail" *ngIf="selectedSpecies">
-    <div class="inner-species-detail">
+  <div class="module-container" *ngIf="selectedSpecies">
       <h2>{{ selectedSpecies.common_name }}</h2>
-      <p><strong>Nome scientifico:</strong> {{ selectedSpecies.scientific_name }}</p>
-      <p><strong>Categoria:</strong> {{ selectedSpecies.category }}</p>
-      <p><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure }}</p>
-      <p><strong>Annaffiatura:</strong> ogni {{ selectedSpecies.watering_freq }} giorni</p>
-      <p><strong>Concimazione:</strong> ogni {{ selectedSpecies.fertilizing_freq }} giorni</p>
-      <p><strong>Periodo semina:</strong> {{ selectedSpecies.sowing_period }}</p>
-      <p><strong>Periodo raccolta:</strong> {{ selectedSpecies.harvest_period }}</p>
-      <p><strong>Note:</strong> {{ selectedSpecies.notes }}</p>
-    </div>
+      <ul>
+        <li><strong>Nome scientifico:</strong> {{ selectedSpecies.scientific_name }}</li>
+        <li><strong>Categoria:</strong> {{ selectedSpecies.category }}</li>
+        <li><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure }}</li>
+        <li><strong>Annaffiatura:</strong> ogni {{ selectedSpecies.watering_freq }} giorni</li>
+        <li><strong>Concimazione:</strong> ogni {{ selectedSpecies.fertilizing_freq }} giorni</li>
+        <li><strong>Periodo semina:</strong> {{ selectedSpecies.sowing_period }}</li>
+        <li><strong>Periodo raccolta:</strong> {{ selectedSpecies.harvest_period }}</li>
+        <li><strong>Note:</strong> {{ selectedSpecies.notes }}</li>
+      </ul>
 
-    <button *ngIf="isMobile" class="back-button" (click)="deselectSpecies()">Torna alla lista</button>
+    
+
+      <button *ngIf="isMobile" class="back-button" (click)="deselectSpecies()">Torna alla lista</button>
   </div>
 
   <!-- FAB per tornare a plants -->

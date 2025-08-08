@@ -1,24 +1,36 @@
-<div class="tasks-wrapper">
-  <h2>Task per {{ plantNickname }}</h2>
+<div class="page-wrapper">
 
-  <div *ngIf="loading">Caricamento in corso...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="module-container">
+    <h2>Task per {{ plantNickname }}</h2>
 
-  <ul *ngIf="!loading && !error">
-    <li *ngFor="let task of tasks">
-      <div class="task-info">
-        <strong>{{ task.type | titlecase }}</strong>
-        <span class="date">{{ task.scheduled_date | date }}</span>
-        <small *ngIf="task.status === 'completed'">✅ Completato</small>
-        <small *ngIf="task.status === 'skipped'">❌ Saltato</small>
-        <small *ngIf="task.status === 'pending'">🕒 Da fare</small>
-        <p *ngIf="task.notes">{{ task.notes }}</p>
-      </div>
+    <div *ngIf="loading">Caricamento in corso...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
 
-      <div class="task-actions" *ngIf="task.status === 'pending'">
-        <button (click)="completeTask(task.id)">✔️</button>
-        <button (click)="skipTask(task.id)">⏭️</button>
-      </div>
-    </li>
-  </ul>
+    <ul *ngIf="!loading && !error">
+      <li *ngFor="let task of tasks">
+        <div class="task-info">
+          <strong>{{ task.type | titlecase }}</strong>
+          <span class="date">{{ task.scheduled_date | date }}</span>
+          <small class="material-icons" *ngIf="task.status === 'completed'">check</small>
+          <small class="material-icons"  *ngIf="task.status === 'skipped'">close</small>
+          <small class="material-icons"  *ngIf="task.status === 'pending'">hourglass_top</small>
+          <p *ngIf="task.notes">{{ task.notes }}</p>
+        </div>
+
+        <div class="task-actions" *ngIf="task.status === 'pending'">
+          <button (click)="completeTask(task.id)">
+            <span class="material-icons">check</span>
+          </button>
+          <button (click)="skipTask(task.id)">
+            <span class="material-icons">close</span>            
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button class="fab" (click)="goToPlants()">
+    <span class="material-icons">arrow_back</span>
+  </button>
+
 </div>

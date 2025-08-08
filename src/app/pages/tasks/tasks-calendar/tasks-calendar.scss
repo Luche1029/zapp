@@ -1,24 +1,26 @@
-.calendar-wrapper {
-  padding: 16px;
-  h2 { text-align: center; margin-bottom: 14px; }
-  .loading, .error { text-align: center; margin: 10px 0; }
+.page-wrapper {
+  flex-direction: column;
+  align-items: center;
 }
 
-.days-row {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-snap-type: x proximity;
+  .days-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+    width:100%;
+    flex-wrap: wrap;   
 
-  /* nascondi scrollbar */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.days-row::-webkit-scrollbar { display: none; }
+    /* nascondi scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .days-row::-webkit-scrollbar { display: none; }
+
 
 .day-card {
-  flex: 0 0 320px;
+  flex: 1 1 calc(15% - 16px);
   background: #f9f9f9dd;
   border-radius: 10px;
   padding: 12px;
@@ -26,6 +28,7 @@
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
+  min-width: 220px;  
 }
 
 .day-header {
@@ -88,4 +91,21 @@
 
   &.done  { opacity: 0.7; border-color: #cce6cc; }
   &.skipped { opacity: 0.7; border-color: #e6cccc; }
+}
+
+
+@media (max-width: 768px) {
+  .days-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .days-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .day-card {
+    flex: 0 0 auto; /* blocchi fissi */
+  }
 }

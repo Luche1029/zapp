@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class PlantsComponent implements OnInit {
   plants: any[] = [];
   selectedPlant: any = null;
-  selectedIndex = 0;
+  selectedIndex = -1;
   loading = true;
   error = '';
   isMobile = false;
@@ -43,10 +43,10 @@ export class PlantsComponent implements OnInit {
         this.loading = false;
 
         // Se abbiamo piante, selezioniamo la prima di default
-        if (this.plants.length > 0) {
+       /* if (this.plants.length > 0) {
           this.selectedIndex = 0;
           this.selectedPlant = this.plants[0];
-        }
+        }*/
       },
       error: (err) => {
         this.error = 'Errore nel caricamento delle piante';
@@ -114,7 +114,7 @@ export class PlantsComponent implements OnInit {
     this.router.navigate([`/plants/${plantId}/tasks`]);
   }
 
-  goToCalendar(plantId: any) {
+  goToCalendar(plantId: number) {
     if (plantId > 0) {
       this.router.navigate(['/tasks/calendar/plant', plantId]);
     } else {

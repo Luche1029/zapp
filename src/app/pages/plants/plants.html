@@ -1,13 +1,13 @@
-<div class="plants-wrapper">
+<div class="page-wrapper">
 
   <!-- Lista piante -->
-  <div class="plants-container" [class.hidden]="isMobile && selectedPlant">
-    <div class="header">
+  <div class="module-container" [class.hidden]="isMobile && selectedPlant">
+    
       <h2>Le tue piante</h2>
-      <button class="action-button top-right" (click)="goToCalendar(0)" title="Calendario">
+      <button class="open-calendar-button" (click)="goToCalendar(0)" title="Calendario">
         <span class="material-icons">calendar_month</span>
       </button>
-    </div>
+  
 
     <div *ngIf="loading">Caricamento in corso...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
@@ -21,35 +21,35 @@
       </li>
     </ul>
 
-    <button class="action-button bottom-right" (click)="openAddPlantForm()">
+    <button class="add-button" (click)="openAddPlantForm()">
       <span class="material-icons">add</span>
     </button>
   </div>
 
   <!-- Dettaglio pianta -->
-  <div class="plant-detail" *ngIf="selectedPlant">
-    <div class="inner-plant-detail">
-      <h2>{{ selectedPlant.nickname }} <small>({{ selectedPlant.common_name }})</small></h2>
-      <img *ngIf="selectedPlant.image_url" [src]="selectedPlant.image_url" alt="{{ selectedPlant.common_name }}" />
+  <div class="module-container" *ngIf="selectedPlant">
+    <header>
+    <h2>{{ selectedPlant.nickname }} <small *ngIf="selectedPlant.common_name">({{ selectedPlant.common_name }})</small></h2>
+    <img *ngIf="selectedPlant.image_url" [src]="selectedPlant.image_url" alt="{{ selectedPlant.common_name }}" />
+    </header>
+    <ul>     
+      <li><strong>Nome scientifico:</strong> {{ selectedPlant.scientific_name }}</li>
+      <li><strong>Categoria:</strong> {{ selectedPlant.category }}</li>
+      <li><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure }}</li>
 
-      <p><strong>Nome scientifico:</strong> {{ selectedPlant.scientific_name }}</p>
-      <p><strong>Categoria:</strong> {{ selectedPlant.category }}</p>
-      <p><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure }}</p>
+      <li><strong>Status:</strong> {{ selectedPlant.status }}</li>
+      <li><strong>Data impianto:</strong> {{ selectedPlant.planted_date | date }}</li>
+      <li><strong>Ultima annaffiatura:</strong> {{ selectedPlant.last_watering | date }}</li>
+      <li><strong>Posizione:</strong> {{ selectedPlant.location }}</li>
 
-      <p><strong>Status:</strong> {{ selectedPlant.status }}</p>
-      <p><strong>Data impianto:</strong> {{ selectedPlant.planted_date | date }}</p>
-      <p><strong>Ultima annaffiatura:</strong> {{ selectedPlant.last_watering | date }}</p>
-      <p><strong>Posizione:</strong> {{ selectedPlant.location }}</p>
+      <li><strong>Note:</strong> {{ selectedPlant.plant_notes || selectedPlant.species_notes }}</li>
+    </ul>
+    
 
-      <p><strong>Note:</strong> {{ selectedPlant.plant_notes || selectedPlant.species_notes }}</p>
-    </div>
 
-    <button class="open-tasks-button" (click)="goToTasks()">
-      <span class="material-icons">calendar_today</span>
+    <button class="open-calendar-button" (click)="goToTasks()">
+      <span class="material-icons">pending_actions</span>
     </button>
-<button class="open-calendar-button" (click)="goToCalendar(selectedPlant.id)">
-  <span class="material-icons">calendar_month</span>
-</button>
 
     <!-- Pulsante torna alla lista per mobile -->
     <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>

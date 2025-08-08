@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class SpeciesComponent implements OnInit {
   species: any[] = [];
   selectedSpecies: any = null;
-  selectedIndex = 0;
+  selectedIndex = -1;
   loading = true;
   error = '';
   isMobile = false;
@@ -43,10 +43,10 @@ export class SpeciesComponent implements OnInit {
       next: (res) => {
         this.species = res;
         this.loading = false;
-        if (this.species.length > 0) {
+       /* if (this.species.length > 0) {
           this.selectedSpecies = this.species[0];
           this.selectedIndex = 0;
-        }
+        }*/
       },
       error: () => {
         this.error = 'Errore nel caricamento delle specie';

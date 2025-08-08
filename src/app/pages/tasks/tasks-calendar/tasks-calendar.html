@@ -1,4 +1,4 @@
-<div class="calendar-wrapper">
+<div class="page-wrapper">
   <h2>Calendario attività</h2>
 
   <div *ngIf="loading" class="loading">Caricamento…</div>
@@ -9,8 +9,12 @@
       <div class="day-header">
         <h3>{{ day.date | date:'fullDate' }}</h3>
         <div class="day-actions">
-          <button title="Completa tutti" (click)="completeAll(day)">✅</button>
-          <button title="Salta tutti" (click)="skipAll(day)">⏭️</button>
+          <button title="Completa tutti" (click)="completeAll(day)">
+            <span class="material-icons">check</span>
+          </button>
+          <button title="Salta tutti" (click)="skipAll(day)">
+            <span class="material-icons">double_arrow</span>
+          </button>
         </div>
       </div>
 
@@ -21,12 +25,17 @@
             <div class="type">{{ t.type }}</div>
           </div>
           <div class="right status">
-            <span *ngIf="t.status==='pending'">🕒</span>
-            <span *ngIf="t.status==='completed'">✅</span>
-            <span *ngIf="t.status==='skipped'">⏭️</span>
+            <span class="material-icons" *ngIf="t.status==='pending'">hourglass_top</span>
+            <span class="material-icons" *ngIf="t.status==='completed'">check</span>
+            <span class="material-icons" *ngIf="t.status==='skipped'">close</span>
           </div>
         </li>
       </ul>
     </div>
   </div>
+
+    <!-- FAB per tornare a plants -->
+  <button class="fab" (click)="goToPlants()">
+    <span class="material-icons">arrow_back</span>
+  </button>
 </div>

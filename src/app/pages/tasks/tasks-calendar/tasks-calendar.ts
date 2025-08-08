@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 type TaskStatus = 'pending' | 'completed' | 'skipped';
 interface Task {
@@ -29,11 +30,12 @@ interface DayTasks {
   styleUrl: './tasks-calendar.scss'
 })
 export class TasksCalendarComponent implements OnInit {
+
   loading = true;
   error = '';
   days: DayTasks[] = [];
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.fetchTasks();
@@ -96,5 +98,7 @@ export class TasksCalendarComponent implements OnInit {
 
   }
 
-
+  goToPlants() {
+    this.router.navigate(['/plants']);
+  }
 }
