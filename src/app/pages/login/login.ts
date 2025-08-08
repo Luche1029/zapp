@@ -22,7 +22,6 @@ export class LoginComponent {
     this.api.login(this.email, this.password).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        console.log('token', res.token);
         this.router.navigate(['/plants']);
       },
       error: () => {

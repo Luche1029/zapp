@@ -25,7 +25,7 @@ export class TasksComponent implements OnInit {
   }
 
   fetchTasks() {
-    this.api.getTasks(this.plantId).subscribe({
+    /*this.api.getTasks().subscribe({
       next: (res) => {
         this.tasks = res;
         if (res.length > 0) this.plantNickname = res[0].nickname;
@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit {
         this.error = 'Errore nel caricamento dei task';
         this.loading = false;
       }
-    });
+    });*/
   }
 
 completeTask(taskId: number) {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Task } from '../models/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -44,20 +45,28 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/plants`, plant, { headers: this.getAuthHeaders() });
   }
 
-  // Tasks
-  /*getAllTasks(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/tasks`, { headers: this.getAuthHeaders() });
-  }*/
-
-  getTasks(plantId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/tasks/${plantId}`,  { headers: this.getAuthHeaders() });
+  getTasks(plantId: number): Observable<Task[]> {
+    if (plantId > 0) {
+      return this.http.get<Task[]>(
+        `${this.baseUrl}/tasks/${plantId}`,
+        { headers: this.getAuthHeaders() }
+      );
+    } else {
+      return this.http.get<Task[]>(
+        `${this.baseUrl}/tasks`,
+        { headers: this.getAuthHeaders() }
+      );
+    }
   }
   
   updateTask(id: number, status: string): Observable<any> {
+    console.log("update", id, status);
     return this.http.put(`${this.baseUrl}/tasks/${id}`, { status }, {
       headers: this.getAuthHeaders()
     });
   }
+
+  
 
 
 }

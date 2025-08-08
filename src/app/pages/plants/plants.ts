@@ -114,9 +114,8 @@ export class PlantsComponent implements OnInit {
     this.router.navigate([`/plants/${plantId}/tasks`]);
   }
 
-  goToCalendar() {
-    const plantId = this.selectedPlant?.plant_id || this.selectedPlant?.id;
-    if (plantId) {
+  goToCalendar(plantId: any) {
+    if (plantId > 0) {
       this.router.navigate(['/tasks/calendar/plant', plantId]);
     } else {
       this.router.navigate(['/tasks/calendar']);

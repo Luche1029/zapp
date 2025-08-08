@@ -32,27 +32,50 @@
       margin: 0;
     }
 
-    .add-button {
-      width: 35px;
-      height: 35px;
+
+  }
+
+    .action-button {
+      width: 50px;
+      height: 50px;
       font-size: 22px;
       font-weight: bold;
-      color: #28a745;
-      background: none;
+      background-color: #28a745;
+      color: white;
       border: 2px solid #28a745;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: absolute;
+
+      &.top-left {
+        left:-25px;
+        top: -25px;
+      }
+
+      &.top-right {
+        right:-25px;
+        top: -25px;
+      }
+
+      &.bottom-left {
+        left:-25px;
+        bottom: -25px;
+      }
+
+      &.bottom-right {
+        right:-25px;
+        bottom: -25px;
+      }
 
       &:hover {
-        background: #28a745;
+        background-color: #1f7232;
+        border: 2px solid #1f7232;
         color: #fff;
       }
     }
-  }
-
   /* LISTA scrollabile */
   .plants-container ul {
     list-style: none;

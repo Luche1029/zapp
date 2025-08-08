@@ -4,8 +4,8 @@
   <div class="plants-container" [class.hidden]="isMobile && selectedPlant">
     <div class="header">
       <h2>Le tue piante</h2>
-      <button class="add-button" (click)="openAddPlantForm()">
-        <span class="material-icons">add</span>
+      <button class="action-button top-right" (click)="goToCalendar(0)" title="Calendario">
+        <span class="material-icons">calendar_month</span>
       </button>
     </div>
 
@@ -20,6 +20,10 @@
         <span>({{ plant.species_name }})</span>
       </li>
     </ul>
+
+    <button class="action-button bottom-right" (click)="openAddPlantForm()">
+      <span class="material-icons">add</span>
+    </button>
   </div>
 
   <!-- Dettaglio pianta -->
@@ -43,7 +47,7 @@
     <button class="open-tasks-button" (click)="goToTasks()">
       <span class="material-icons">calendar_today</span>
     </button>
-<button class="open-calendar-button" (click)="goToCalendar()">
+<button class="open-calendar-button" (click)="goToCalendar(selectedPlant.id)">
   <span class="material-icons">calendar_month</span>
 </button>
 
