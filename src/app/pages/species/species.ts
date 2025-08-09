@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class SpeciesComponent implements OnInit {
   species: any[] = [];
+  categories: any[] = [];
+  sunExposure: any[] = [];
   selectedSpecies: any = null;
   selectedIndex = -1;
   loading = true;
@@ -39,14 +41,32 @@ export class SpeciesComponent implements OnInit {
   ngOnInit(): void {
     this.checkScreenSize();
 
+    this.api.getSunExposure().subscribe({
+      next: (res: any) => {
+        this.sunExposure = res;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Errore nel caricamento delle esposizioni';
+        this.loading = false;
+      }
+    });
+
+    this.api.getCategories().subscribe({
+      next: (res: any) => {
+        this.categories = res;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Errore nel caricamento delle specie';
+        this.loading = false;
+      }
+    });
+
     this.api.getSpecies().subscribe({
       next: (res) => {
         this.species = res;
         this.loading = false;
-       /* if (this.species.length > 0) {
-          this.selectedSpecies = this.species[0];
-          this.selectedIndex = 0;
-        }*/
       },
       error: () => {
         this.error = 'Errore nel caricamento delle specie';

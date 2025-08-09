@@ -17,6 +17,18 @@ export class ApiService {
     });
   }
 
+  getCategories() {
+    return this.http.get(`${this.baseUrl}/lookups/categories`, { headers: this.getAuthHeaders() });
+  }
+  getSunExposure() {
+    return this.http.get(`${this.baseUrl}/lookups/sun-exposure`, { headers: this.getAuthHeaders() });
+  }
+  // opzionale
+  getPlantStatus() {
+    return this.http.get(`${this.baseUrl}/lookups/plant-status`, { headers: this.getAuthHeaders() });
+  }
+
+
   // Login
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { email, password });

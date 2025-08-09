@@ -25,8 +25,8 @@
       <h2>{{ selectedSpecies.common_name }}</h2>
       <ul>
         <li><strong>Nome scientifico:</strong> {{ selectedSpecies.scientific_name }}</li>
-        <li><strong>Categoria:</strong> {{ selectedSpecies.category }}</li>
-        <li><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure }}</li>
+        <li><strong>Categoria:</strong> {{ selectedSpecies.category_name }}</li>
+        <li><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure_name }}</li>
         <li><strong>Annaffiatura:</strong> ogni {{ selectedSpecies.watering_freq }} giorni</li>
         <li><strong>Concimazione:</strong> ogni {{ selectedSpecies.fertilizing_freq }} giorni</li>
         <li><strong>Periodo semina:</strong> {{ selectedSpecies.sowing_period }}</li>
@@ -60,11 +60,15 @@
 
       <!-- Categoria -->
       <label>Categoria</label>
-      <input type="text" [(ngModel)]="newSpecies.category" name="category" />
+      <select [(ngModel)]="newSpecies.category" name="category">
+        <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
+      </select>
 
       <!-- Esposizione -->
       <label>Esposizione</label>
-      <input type="text" [(ngModel)]="newSpecies.sun_exposure" name="sun_exposure" />
+      <select [(ngModel)]="newSpecies.sun_exposure" name="sun_exposure">
+        <option *ngFor="let e of sunExposure" [value]="e.id">{{e.name}}</option>
+      </select>
 
       <!-- Frequenza annaffiatura -->
       <label>Frequenza annaffiatura (giorni)</label>

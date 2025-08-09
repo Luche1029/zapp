@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class PlantsComponent implements OnInit {
   plants: any[] = [];
+  status: any[] = [];
   selectedPlant: any = null;
   selectedIndex = -1;
   loading = true;
@@ -36,17 +37,21 @@ export class PlantsComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkScreenSize();
+    this.api.getPlantStatus().subscribe({
+      next: (res: any) => {
+        this.status = res;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Errore nel caricamento degli stati';
+        this.loading = false;
+      }
+    });  
 
     this.api.getPlants().subscribe({
       next: (res) => {
         this.plants = res;
         this.loading = false;
-
-        // Se abbiamo piante, selezioniamo la prima di default
-       /* if (this.plants.length > 0) {
-          this.selectedIndex = 0;
-          this.selectedPlant = this.plants[0];
-        }*/
       },
       error: (err) => {
         this.error = 'Errore nel caricamento delle piante';

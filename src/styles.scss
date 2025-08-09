@@ -86,14 +86,14 @@ body {
       width: 100%;
       padding: 10px;
       margin-top: 20px;
-      background-color: #007bff;
+      background-color: #156615;
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #0c7c0c;
       }
     }
   }
@@ -155,10 +155,17 @@ body {
       }
 
       input, select {
-        width: 100%;
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
+      }
+
+      input {
+        width: 95%;
+      }
+
+      select, textarea {
+        width: 100%;
       }
 
       button {
@@ -166,15 +173,25 @@ body {
         margin-top: 10px;
         border: none;
         border-radius: 4px;
+        width: 100%;
         cursor: pointer;
+
 
         &:first-of-type {
           background-color: #28a745;
           color: #fff;
+
+          &:hover {           
+            background-color: #7cbb7c; 
+          }
         }
 
         &:last-of-type {
           background-color: #ccc;
+          
+          &:hover {           
+            background-color: #eee; 
+          }
         }
       }
     }

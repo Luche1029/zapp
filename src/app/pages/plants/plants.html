@@ -34,10 +34,10 @@
     </header>
     <ul>     
       <li><strong>Nome scientifico:</strong> {{ selectedPlant.scientific_name }}</li>
-      <li><strong>Categoria:</strong> {{ selectedPlant.category }}</li>
-      <li><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure }}</li>
+      <li><strong>Categoria:</strong> {{ selectedPlant.category_name }}</li>
+      <li><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure_name }}</li>
 
-      <li><strong>Status:</strong> {{ selectedPlant.status }}</li>
+      <li><strong>Status:</strong> {{ selectedPlant.status_name }}</li>
       <li><strong>Data impianto:</strong> {{ selectedPlant.planted_date | date }}</li>
       <li><strong>Ultima annaffiatura:</strong> {{ selectedPlant.last_watering | date }}</li>
       <li><strong>Posizione:</strong> {{ selectedPlant.location }}</li>
@@ -77,9 +77,8 @@
 
         <label>Status</label>
         <select [(ngModel)]="newPlant.status" name="status">
-          <option value="seed">Seme</option>
-          <option value="seedling">Germoglio</option>
-          <option value="adult">Adulto</option>
+          <option *ngFor="let s of status" [value]="s.id">{{s.name}}</option>
+         
         </select>
 
         <label>Posizione</label>
