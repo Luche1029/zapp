@@ -21,7 +21,6 @@ export class PlantsComponent implements OnInit {
   selectedIndex = -1;
   loading = true;
   error = '';
-  isMobile = false;
 
   showAddModal = false;
   newPlant = {
@@ -36,7 +35,6 @@ export class PlantsComponent implements OnInit {
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.checkScreenSize();
     this.api.getPlantStatus().subscribe({
       next: (res: any) => {
         this.status = res;
@@ -127,13 +125,5 @@ export class PlantsComponent implements OnInit {
     }
   }
 
-  // Rilevamento dimensione schermo
-  @HostListener('window:resize', [])
-  onResize() {
-    this.checkScreenSize();
-  }
 
-  private checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768; // breakpoint tablet/mobile
-  }
 }

@@ -1,7 +1,7 @@
 <div class="page-wrapper">
 
   <!-- Lista piante -->
-  <div class="module-container" [class.hidden]="isMobile && selectedPlant">
+  <div class="module-container" [class.hidden]="selectedPlant">
     
       <h2>Le tue piante</h2>
       <button class="open-calendar-button" (click)="goToCalendar(0)" title="Calendario">
@@ -52,7 +52,9 @@
     </button>
 
     <!-- Pulsante torna alla lista per mobile -->
-    <button *ngIf="isMobile" class="back-button" (click)="deselectPlant()">Torna alla lista</button>
+    <button class="back-button" (click)="deselectPlant()">
+      <span class="material-icons">arrow_left</span>
+    </button>
   </div>
 
   <button class="fab" (click)="goToSpecies()">

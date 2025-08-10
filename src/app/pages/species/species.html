@@ -33,11 +33,11 @@
         <li><strong>Periodo raccolta:</strong> {{ selectedSpecies.harvest_period }}</li>
         <li><strong>Note:</strong> {{ selectedSpecies.notes }}</li>
       </ul>
+   
 
-    
-
-      <button *ngIf="isMobile" class="back-button" (click)="deselectSpecies()">Torna alla lista</button>
-  </div>
+    <button class="back-button" (click)="deselectSpecies()">
+      <span class="material-icons">arrow_left</span>
+    </button>  </div>
 
   <!-- FAB per tornare a plants -->
   <button class="fab" (click)="goToPlants()">
