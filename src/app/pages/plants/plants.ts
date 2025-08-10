@@ -32,9 +32,12 @@ export class PlantsComponent implements OnInit {
   };
   species: any[] = [];
 
+  isMobile: boolean = false;
+
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
+    this.checkScreenSize();
     this.api.getPlantStatus().subscribe({
       next: (res: any) => {
         this.status = res;
@@ -50,12 +53,26 @@ export class PlantsComponent implements OnInit {
       next: (res) => {
         this.plants = res;
         this.loading = false;
+        if (!this.isMobile && this.plants.length > 0) {
+          this.selectedIndex = 0;
+          this.selectedPlant = this.plants[0];
+        }
       },
       error: (err) => {
         this.error = 'Errore nel caricamento delle piante';
         this.loading = false;
       }
     });
+  }
+
+    // Rilevamento dimensione schermo
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768; // breakpoint tablet/mobile
   }
 
   // Selezione pianta

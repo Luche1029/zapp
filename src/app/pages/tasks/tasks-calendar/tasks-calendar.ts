@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { NgFor, NgIf, DatePipe, KeyValuePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { forkJoin } from 'rxjs';
@@ -45,10 +45,18 @@ export class TasksCalendarComponent implements OnInit {
     for (const t of tasks) {
       const key = t.scheduled_date.slice(0, 10); 
       (bucket[key] ||= []).push(t);
-    }
+    }  
     return Object.keys(bucket)
       .sort() 
       .map(d => ({ date: d, tasks: bucket[d].sort((a, b) => a.nickname.localeCompare(b.nickname)) }));
+  }
+
+  isDayComplete(tasksInDay:any) {
+     for (const task of tasksInDay) {
+        if(task.status_id !== 3) 
+          return false;        
+      }
+    return true;
   }
 
   completeAll(day: DayTasks) {

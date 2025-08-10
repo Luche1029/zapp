@@ -5,11 +5,14 @@ li {
 
 .task-info {
   position:relative;
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  gap:7px;
 
   .date {
     display: block;
-    font-size: 14px;
+    font-size: 17px;
     color: #666;
   }
 

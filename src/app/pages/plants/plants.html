@@ -52,7 +52,7 @@
     </button>
 
     <!-- Pulsante torna alla lista per mobile -->
-    <button class="back-button" (click)="deselectPlant()">
+    <button class="back-button" (click)="deselectPlant()" *ngIf="isMobile">
       <span class="material-icons">arrow_left</span>
     </button>
   </div>

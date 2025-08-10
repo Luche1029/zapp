@@ -35,9 +35,10 @@
       </ul>
    
 
-    <button class="back-button" (click)="deselectSpecies()">
+    <button class="back-button" (click)="deselectSpecies()" *ngIf="isMobile">
       <span class="material-icons">arrow_left</span>
-    </button>  </div>
+    </button>  
+  </div>
 
   <!-- FAB per tornare a plants -->
   <button class="fab" (click)="goToPlants()">

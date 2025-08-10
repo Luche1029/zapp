@@ -67,6 +67,10 @@ export class SpeciesComponent implements OnInit {
       next: (res) => {
         this.species = res;
         this.loading = false;
+        if (!this.isMobile && this.species.length > 0) {
+          this.selectedIndex = 0;
+          this.selectedSpecies = this.species[0];
+        }
       },
       error: () => {
         this.error = 'Errore nel caricamento delle specie';

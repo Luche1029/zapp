@@ -9,10 +9,10 @@
     <ul *ngIf="!loading && !error">
       <li *ngFor="let task of tasks">
         <div class="task-info">
+          <span class="date">{{ task.scheduled_date | date:'dd MMMM yyyy'}}</span>
           <strong>{{ task.type_name | titlecase }}</strong>
-          <span class="date">{{ task.scheduled_date | date }}</span>
           <span *ngIf="task.status_id === 3">
-            completato
+           completato
             <small class="material-icons" >check</small>
           </span>
           <span *ngIf="task.status_id === 2">    

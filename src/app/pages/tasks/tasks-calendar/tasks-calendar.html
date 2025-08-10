@@ -8,7 +8,7 @@
     <div class="day-card" *ngFor="let day of days">
       <div class="day-header">
         <h3>{{ day.date | date:'fullDate' }}</h3>
-        <div class="day-actions">
+        <div class="day-actions" *ngIf="!isDayComplete(day.tasks)">
           <button title="Completa tutti" (click)="completeAll(day)">
             <span class="material-icons">check</span>
           </button>
@@ -19,7 +19,7 @@
       </div>
 
       <ul class="tasks-list">
-        <li *ngFor="let t of day.tasks" [class.done]="t.status==='completed'" [class.skipped]="t.status==='skipped'">
+        <li *ngFor="let t of day.tasks" [class.done]="t.status_id===3" [class.skipped]="t.status_id===2">
           <div class="left">
             <div class="plant">{{ t.nickname }}</div>
             <div class="type">{{ t.type }}</div>
