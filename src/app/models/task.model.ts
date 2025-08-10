@@ -1,10 +1,12 @@
 // models/task.model.ts (o dove preferisci)
 export interface Task {
   id: number;
-  plant_id: number;
-  plant_name: string;
-  type: 'watering'|'fertilizing'|'pruning'|'harvest'|'custom';
-  scheduled_date: string;      // ISO date
-  status: 'pending'|'completed'|'skipped';
+  plantId: number;
+  nickname: string;
+  type_id: number;
+  type: string;
+  scheduled_date: string;     
+  status_id: number;
+  status: string;
   completed_date?: string|null;
 }

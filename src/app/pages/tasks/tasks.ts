@@ -26,10 +26,10 @@ export class TasksComponent implements OnInit {
   }
 
   fetchTasks() {
-    this.api.getTasks(0).subscribe({
+    this.api.getTasks(this.plantId).subscribe({
       next: (res) => {
         this.tasks = res;
-        //if (res.length > 0) this.plantNickname = res[0].nickname;
+        if (res.length > 0) this.plantNickname = res[0].nickname;
         this.loading = false;
       },
       error: () => {
@@ -40,13 +40,13 @@ export class TasksComponent implements OnInit {
   }
 
   completeTask(taskId: number) {
-    this.api.updateTask(taskId, 'completed').subscribe(() => {
+    this.api.updateTask(taskId, 3).subscribe(() => {
       this.fetchTasks();
     });
   }
 
   skipTask(taskId: number) {
-    this.api.updateTask(taskId, 'skipped').subscribe(() => {
+    this.api.updateTask(taskId, 2).subscribe(() => {
       this.fetchTasks();
     });
   }

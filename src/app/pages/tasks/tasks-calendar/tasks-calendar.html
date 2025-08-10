@@ -21,13 +21,13 @@
       <ul class="tasks-list">
         <li *ngFor="let t of day.tasks" [class.done]="t.status==='completed'" [class.skipped]="t.status==='skipped'">
           <div class="left">
-            <div class="plant">{{ t.plant_name }}</div>
+            <div class="plant">{{ t.nickname }}</div>
             <div class="type">{{ t.type }}</div>
           </div>
           <div class="right status">
-            <span class="material-icons" *ngIf="t.status==='pending'">hourglass_top</span>
-            <span class="material-icons" *ngIf="t.status==='completed'">check</span>
-            <span class="material-icons" *ngIf="t.status==='skipped'">close</span>
+            <span class="material-icons" *ngIf="t.status_id===1">hourglass_top</span>
+            <span class="material-icons" *ngIf="t.status_id===3">check</span>
+            <span class="material-icons" *ngIf="t.status_id===2">close</span>
           </div>
         </li>
       </ul>

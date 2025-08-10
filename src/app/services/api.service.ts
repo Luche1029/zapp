@@ -23,11 +23,11 @@ export class ApiService {
   getSunExposure() {
     return this.http.get(`${this.baseUrl}/lookups/sun-exposure`, { headers: this.getAuthHeaders() });
   }
+
   // opzionale
   getPlantStatus() {
     return this.http.get(`${this.baseUrl}/lookups/plant-status`, { headers: this.getAuthHeaders() });
   }
-
 
   // Login
   login(email: string, password: string): Observable<any> {
@@ -52,7 +52,6 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/plants/${id}`, { headers: this.getAuthHeaders() });
   }
 
-
   savePlant(plant: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/plants`, plant, { headers: this.getAuthHeaders() });
   }
@@ -71,9 +70,8 @@ export class ApiService {
     }
   }
   
-  updateTask(id: number, status: string): Observable<any> {
-    console.log("update", id, status);
-    return this.http.put(`${this.baseUrl}/tasks/${id}`, { status }, {
+  updateTask(id: number, statusId: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/tasks/${id}`, { statusId }, {
       headers: this.getAuthHeaders()
     });
   }

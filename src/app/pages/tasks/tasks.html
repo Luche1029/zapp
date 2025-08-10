@@ -9,15 +9,24 @@
     <ul *ngIf="!loading && !error">
       <li *ngFor="let task of tasks">
         <div class="task-info">
-          <strong>{{ task.type | titlecase }}</strong>
+          <strong>{{ task.type_name | titlecase }}</strong>
           <span class="date">{{ task.scheduled_date | date }}</span>
-          <small class="material-icons" *ngIf="task.status === 'completed'">check</small>
-          <small class="material-icons"  *ngIf="task.status === 'skipped'">close</small>
-          <small class="material-icons"  *ngIf="task.status === 'pending'">hourglass_top</small>
+          <span *ngIf="task.status_id === 3">
+            completato
+            <small class="material-icons" >check</small>
+          </span>
+          <span *ngIf="task.status_id === 2">    
+            saltato        
+            <small class="material-icons"  *ngIf="task.status_id === 2">close</small>
+          </span>
+          <span *ngIf="task.status_id === 1">
+            in pending
+            <small class="material-icons"  *ngIf="task.status_id === 1">hourglass_top</small>
+          </span>
           <p *ngIf="task.notes">{{ task.notes }}</p>
         </div>
 
-        <div class="task-actions" *ngIf="task.status === 'pending'">
+        <div class="task-actions" *ngIf="task.status_id === 1">
           <button (click)="completeTask(task.id)">
             <span class="material-icons">check</span>
           </button>
