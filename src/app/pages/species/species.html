@@ -22,17 +22,120 @@
   </div>
 
   <div class="module-container" *ngIf="selectedSpecies">
-      <h2>{{ selectedSpecies.common_name }}</h2>
-      <ul>
-        <li><strong>Nome scientifico:</strong> {{ selectedSpecies.scientific_name }}</li>
-        <li><strong>Categoria:</strong> {{ selectedSpecies.category_name }}</li>
-        <li><strong>Esposizione:</strong> {{ selectedSpecies.sun_exposure_name }}</li>
-        <li><strong>Annaffiatura:</strong> ogni {{ selectedSpecies.watering_freq }} giorni</li>
-        <li><strong>Concimazione:</strong> ogni {{ selectedSpecies.fertilizing_freq }} giorni</li>
-        <li><strong>Periodo semina:</strong> {{ selectedSpecies.sowing_period }}</li>
-        <li><strong>Periodo raccolta:</strong> {{ selectedSpecies.harvest_period }}</li>
-        <li><strong>Note:</strong> {{ selectedSpecies.notes }}</li>
-      </ul>
+
+      <header>
+        <h2>    
+        <button (click)="toggleEdit()">
+          <span class="material-icons">{{ editMode ? 'undo' : 'edit' }}</span>
+        </button>  
+        {{ selectedSpecies.common_name }} 
+        <small *ngIf="selectedSpecies.scientific_name">({{ selectedSpecies.scientific_name }})</small></h2>
+        <div class="image-container">
+          <button class="left"  (click)="openCamera()">
+            <span class="material-icons" >photo_camera</span>
+          </button>
+          <button class="right">
+            <span class="material-icons" (click)="uploadImage()">upload</span>
+          </button>
+          <input 
+            type="file" 
+            accept="image/*"
+            capture="environment"
+            #fileInput
+            style="display: none"
+            (change)="onFileSelected($event)" />
+          <div *ngIf="uploading">Caricamento...</div>
+          
+          
+          <img 
+            *ngIf="selectedSpecies.image_url" 
+            [src]="selectedSpecies.image_url" 
+            alt="{{ selectedSpecies.common_name }}" />
+        </div>
+      </header>
+      <form [formGroup]="speciesForm" >
+        <ul>
+          <li *ngIf="selectedSpecies.common_name || editMode">
+              <strong>Nome comune:</strong>
+              <input 
+                type="text" 
+                [value]="selectedSpecies.common_name" 
+                formControlName="common_name"
+                [class]="editMode ? 'editable' : ''"/>
+          </li>
+          <li *ngIf="selectedSpecies.scientific_name || editMode">
+              <strong>Nome scientifico:</strong>
+              <input 
+                type="text" 
+                [value]="selectedSpecies.scientific_name" 
+                formControlName="scientific_name"
+                [class]="editMode ? 'editable' : ''"/>
+          </li>
+          <li *ngIf="selectedSpecies.category_id || editMode">
+            <strong>Categoria:</strong>
+            <select formControlName="category_id">
+              <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+            </select> 
+          </li>
+          <li *ngIf="selectedSpecies.sunExposure || editMode">
+            <strong>Esposizione:</strong>    
+            <select formControlName="sun_exposure_id">
+              <option *ngFor="let se of sunExposure" [value]="se.id">{{se.name}}</option>
+            </select> 
+          <li *ngIf="selectedSpecies.watering_freq || editMode">
+            <strong>Annaffiatura:</strong>
+            <input 
+                type="number" 
+                [value]="selectedSpecies.watering_freq" 
+                formControlName="watering_freq"
+                [class]="editMode ? 'editable' : ''"/>
+          </li>
+          <li *ngIf="selectedSpecies.fertilizing_freq || editMode">
+            <strong>Concimazione:</strong>
+            <input 
+                type="number" 
+                [value]="selectedSpecies.fertilizing_freq" 
+                formControlName="fertilizing_freq"
+                [class]="editMode ? 'editable' : ''"/>
+          <li *ngIf="selectedSpecies.pruning_freq || editMode ">
+            <strong>Potatura:</strong>
+             <input 
+                type="number" 
+                [value]="selectedSpecies.pruning_freq" 
+                formControlName="pruning_freq"
+                [class]="editMode ? 'editable' : ''"/>
+          </li>
+          <li *ngIf="selectedSpecies.sowing_period || editMode">
+            <strong>Periodo semina:</strong>
+            <input 
+                type="text" 
+                [value]="selectedSpecies.sowing_period" 
+                formControlName="sowing_period"
+                [class]="editMode ? 'editable' : ''"/> 
+          </li>
+          <li *ngIf="selectedSpecies.harvest_period || editMode">
+            <strong>Periodo raccolta:</strong>
+            <input 
+                type="text" 
+                [value]="selectedSpecies.harvest_period" 
+                formControlName="harvest_period"
+                [class]="editMode ? 'editable' : ''"/> 
+          </li>
+          <li *ngIf="selectedSpecies.notes || editMode">
+            <strong>Note:</strong> 
+            <textarea 
+              formControlName="notes"
+              [class]="editMode ? 'editable' : ''"
+              >{{ selectedSpecies.notes }}</textarea>
+          </li>        
+          <li *ngIf="editMode">
+            <button (click)="saveSpecies()">
+              <span  class="material-icons">save</span>
+            </button>
+          </li>
+        </ul>
+
+      </form>
    
 
     <button class="back-button" (click)="deselectSpecies()" *ngIf="isMobile">
@@ -44,6 +147,28 @@
   <button class="fab" (click)="goToPlants()">
     <span class="material-icons">arrow_back</span>
   </button>
+
+  <div class="camera-modal" *ngIf="cameraOpen">
+    <div class="camera-content">
+      <button type="button" (click)="closeCamera()" class="button-close">
+        <span class="material-icons">close</span>
+      </button>
+      <video #video autoplay playsinline></video>
+
+      <div class="cam-buttons">
+        <button type="button" (click)="takePhoto()" class="">
+          <span class="material-icons">camera</span>
+        </button>
+
+      </div>
+
+      <!-- opzionale: preview scatto -->
+      <img *ngIf="shotUrl" [src]="shotUrl" alt="Scatto" style="max-width: 200px;" />
+
+      <!-- nascosto: ci serve per catturare il frame -->
+      <canvas #canvas style="display:none"></canvas>
+    </div>
+  </div>
 
   <!-- Modal aggiunta specie -->
 <div class="modal" *ngIf="showAddModal">

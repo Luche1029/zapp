@@ -30,7 +30,56 @@ body {
     flex-direction: column;
     padding-bottom: 75px;
 
-   
+    header {
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .image-container {
+        position: relative;
+        display: flex;
+        width: 100%;
+        align-content: center;
+        justify-content: center;
+        padding: 15px;
+
+        img {
+          width:276px;
+        }
+
+        button {
+          background-color: #ffffff;
+          width: 45px;
+          height: 45px;
+          position:absolute;
+          top: 0px;
+          border:1px solid #cacaca;
+          border-radius: 50%;
+
+          &.left {
+            left: calc(50% - 138px - 15px);
+
+          }
+
+          &.right {
+            right: calc(50% - 138px - 15px);
+
+          }
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
+
+          span {
+            font-size: 19pt;
+          }
+        }
+
+      }
+
+    }
  
     ul {
       list-style: none;
@@ -56,6 +105,29 @@ body {
           background: #e6ffe6;
           border-color: #28a745;
         }
+
+        input, select, textarea {
+          background: none;
+          border: none;
+          font-size: 13pt;
+          text-align: end;
+
+          &.editable {
+            background-color: #e6ffe6;
+            color: #28a745;
+          }
+        }
+
+        textarea {
+          width:100%;
+        }
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+        }
       }
     }
 
@@ -66,7 +138,9 @@ body {
 
     .open-calendar-button, .add-button, .back-button {
       border: 0; background: #fff;
-      border-radius: 50%; width: 40px; height: 40px;
+      border-radius: 50%; 
+      width: 40px; 
+      height: 40px;
       box-shadow: 0 2px 4px rgba(0,0,0,.15);
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
@@ -87,27 +161,6 @@ body {
       top: 12px; left: 12px;
 
     }
-/*
-    .back-button {
-      display: none;
-      position:absolute;
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;     
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #ddd;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #ddd;
-      }
-
-      .material-icons {
-        font-size: 25pt;
-      }
-    }*/
   }
 
   .fab {
@@ -207,6 +260,55 @@ body {
         }
       }
     }
+  }
+
+  .camera-modal {
+    position: fixed; 
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: grid; 
+    place-items: center;
+    z-index: 1000;
+  }
+  .camera-content {
+      position:relative;
+      background: #fff; 
+      padding: 16px; 
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+      display: grid;
+      gap: 12px; 
+      justify-items: center;
+      padding-top: 45px;
+
+    .button-close {
+      position: absolute;
+      right: 15px;
+      top:5px;
+      border: none;
+      background-color: transparent;
+      width: 25px;
+      span {
+        font-size: 19pt;
+      }
+    }
+  }
+
+  video { width: 320px; height: auto; border-radius: 8px; background: #000; }
+  .cam-buttons { 
+    display: flex; 
+    gap: 8px; 
+
+    button {
+      border: none;
+      background-color: transparent;
+      width: 45px;
+      span {
+        font-size: 39pt;
+      }
+
+    }
+  
   }
 
   

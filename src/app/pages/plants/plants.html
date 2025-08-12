@@ -28,22 +28,90 @@
 
   <!-- Dettaglio pianta -->
   <div class="module-container" *ngIf="selectedPlant">
+<div class="toolbar">
+</div>
+
     <header>
-    <h2>{{ selectedPlant.nickname }} <small *ngIf="selectedPlant.common_name">({{ selectedPlant.common_name }})</small></h2>
-    <img *ngIf="selectedPlant.image_url" [src]="selectedPlant.image_url" alt="{{ selectedPlant.common_name }}" />
+      <h2>      
+        <button (click)="toggleEdit()" >
+          <span class="material-icons">{{ editMode ? 'undo' : 'edit' }}</span>
+        </button>
+        {{ selectedPlant.nickname }} 
+          <small *ngIf="selectedPlant.common_name">({{ selectedPlant.common_name }})</small>
+      </h2>
+      <div class="image-container">
+        <img 
+          *ngIf="selectedPlant.image_url" 
+          [src]="selectedPlant.image_url" 
+          alt="{{ selectedPlant.common_name }}" />
+      </div>
     </header>
+    <form [formGroup]="plantForm" >
     <ul>     
-      <li><strong>Nome scientifico:</strong> {{ selectedPlant.scientific_name }}</li>
-      <li><strong>Categoria:</strong> {{ selectedPlant.category_name }}</li>
-      <li><strong>Esposizione:</strong> {{ selectedPlant.sun_exposure_name }}</li>
-
-      <li><strong>Status:</strong> {{ selectedPlant.status_name }}</li>
-      <li><strong>Data impianto:</strong> {{ selectedPlant.planted_date | date }}</li>
-      <li><strong>Ultima annaffiatura:</strong> {{ selectedPlant.last_watering | date }}</li>
-      <li><strong>Posizione:</strong> {{ selectedPlant.location }}</li>
-
-      <li><strong>Note:</strong> {{ selectedPlant.plant_notes || selectedPlant.species_notes }}</li>
+      <li *ngIf="selectedPlant.nickname || editMode">
+        <strong>Nickname:</strong>
+        <input 
+          type="text" 
+          [value]="selectedPlant.nickname" 
+          formControlName="nickname"
+          [class]="editMode ? 'editable' : ''"/>
+      </li>
+      <li *ngIf="selectedPlant.common_name || editMode">
+        <strong>Specie:</strong> 
+        <select formControlName="species_id">
+          <option *ngFor="let spec of species" [value]="spec.id">{{spec.common_name}}</option>
+        </select>
+      </li>
+      <li *ngIf="selectedPlant.category_name || editMode">
+        <strong>Categoria:</strong> 
+        {{selectedPlant.category_name}}
+      </li>
+      <li *ngIf="selectedPlant.sun_exposure_name || editMode">
+        <strong>Esposizione:</strong> 
+        {{selectedPlant.sun_exposure_name}}
+      </li>
+      <li>
+        <strong>Status:</strong>
+        <select formControlName="status_id">
+          <option *ngFor="let st of status" [value]="st.id">{{st.name}}</option>
+        </select>
+      </li>
+      <li *ngIf="selectedPlant.planted_date || editMode">
+        <strong>Data impianto:</strong>
+        <input 
+          type="date" 
+          [value]="selectedPlant.planted_date | date " 
+          formControlName="planted_date"
+          [class]="editMode ? 'editable' : ''"/>
+      </li>
+      <li *ngIf="selectedPlant.last_watering || editMode">        
+        <strong>Ultima annaffiatura:</strong>
+        <input 
+          type="date" 
+          [value]="selectedPlant.last_watering | date "
+          formControlName="last_watering" /> 
+      </li>
+      <li *ngIf="selectedPlant.location || editMode">
+        <strong>Posizione:</strong>
+        <input 
+          type="text" 
+          [value]="selectedPlant.location" 
+          formControlName="location" />
+      </li>
+      <li *ngIf="selectedPlant.plant_notes || editMode">
+        <strong>Note:</strong> 
+            <textarea 
+              formControlName="notes"
+              [class]="editMode ? 'editable' : ''"
+              >{{ selectedPlant.notes }}</textarea>
+      </li>
+      <li *ngIf="editMode">
+        <button (click)="savePlant()">          
+          <span  class="material-icons">save</span>
+        </button>
+      </li>
     </ul>
+    </form>
     
 
 

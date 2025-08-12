@@ -53,7 +53,7 @@ export class TasksCalendarComponent implements OnInit {
 
   isDayComplete(tasksInDay:any) {
      for (const task of tasksInDay) {
-        if(task.status_id !== 3) 
+        if(task.status_id === 1) 
           return false;        
       }
     return true;

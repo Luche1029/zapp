@@ -9,12 +9,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token ? `Bearer ${token}` : ''
-    });
+  getAuthHeaders(json = true) {
+    const token = localStorage.getItem('token') || '';
+    const h: any = { Authorization: `Bearer ${token}` };
+    if (json) h['Content-Type'] = 'application/json';
+    return new HttpHeaders(h);
   }
 
   getCategories() {
@@ -39,6 +38,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/species`, { headers: this.getAuthHeaders() });
   }
 
+  updateSpecies(id: any, formValues: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/species/${id}`, formValues, { headers: this.getAuthHeaders() });
+  }
+
+  uploadSpeciesImage(id: number, file: File) {
+    const fd = new FormData();
+    fd.append('file', file);
+    return this.http.post(
+      `${this.baseUrl}/species/${id}/image`,
+      fd,
+      { headers: this.getAuthHeaders(false) } 
+    );
+  }
+
   saveSpecies(specie: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/species`, specie, { headers: this.getAuthHeaders() });
   }
@@ -54,6 +67,10 @@ export class ApiService {
 
   savePlant(plant: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/plants`, plant, { headers: this.getAuthHeaders() });
+  }
+
+  updatePlant(id: any, formValues: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/plants/${id}`, formValues, { headers: this.getAuthHeaders() });
   }
 
   getTasks(plantId: number): Observable<Task[]> {
