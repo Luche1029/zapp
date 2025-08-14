@@ -122,6 +122,9 @@ body {
           width:100%;
         }
 
+        span {
+          text-align: end;
+        }
         button {
           background: none;
           border: none;
@@ -335,6 +338,10 @@ body {
 
     .module-container {
       width: 80vw;
+
+      ul li input, select, textarea {
+        width: 50%;
+      }
     }
   }
 }
