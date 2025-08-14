@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
+import {SUPABASE_URL} from '../../models/constants';
 
 
 @Component({
@@ -20,6 +21,8 @@ import { ViewChild, ElementRef } from '@angular/core';
 })
 export class SpeciesComponent implements OnInit {
   private fb = inject(FormBuilder);
+
+  SUPABASE_URL = SUPABASE_URL;    
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('video') videoRef!: ElementRef<HTMLVideoElement>;

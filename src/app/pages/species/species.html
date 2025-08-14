@@ -48,8 +48,8 @@
           
           
           <img 
-            *ngIf="selectedSpecies.image_url" 
-            [src]="selectedSpecies.image_url" 
+            *ngIf="SUPABASE_URL + selectedSpecies.image_url" 
+            [src]="SUPABASE_URL + selectedSpecies.image_url" 
             alt="{{ selectedSpecies.common_name }}" />
         </div>
       </header>
